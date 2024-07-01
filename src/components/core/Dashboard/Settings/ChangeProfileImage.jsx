@@ -16,9 +16,11 @@ function ChangeProfileImage() {
   /*The useRef Hook allows you to persist values between renders.
   It can be used to store a mutable value that does not cause a re-render when updated.
   It can be used to access a DOM element directly.
-  */ const fileInputRef = useRef(null);
+  */ 
+ const fileInputRef = useRef(null);
   function handleClick() {
     fileInputRef.current.click();
+    console.log("upload");
   }
 
   const handleFileChange = (e) => {
@@ -47,9 +49,11 @@ function ChangeProfileImage() {
       const formData = new FormData();
       // updateProfileImage is name in postman se photo ko
       // ko upload kar rhe hai same name yha par bhi use karna padega  by which we get the photo from form
+      
       formData.append("updateProfileImage", imageFile);
       console.log("Uploading Image");
       console.log("formdata is ", formData);
+      console.log("image has some values are ",imageFile);
       dispatch(updateProfileImageOfUser(token, formData)).then(() => {
         setLoading(false);
       });

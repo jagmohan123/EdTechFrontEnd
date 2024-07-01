@@ -32,8 +32,8 @@ function CourseReviewModal({ setReviewModal }) {
     await createRating(
       {
         courseId: courseEntireData._id,
-        rating: data.courseRating,
-        review: data.courseExperience,
+        rating: data?.courseRating,
+        review: data?.courseExperience,
       },
       token
     );
@@ -96,7 +96,7 @@ function CourseReviewModal({ setReviewModal }) {
                 {...register("courseExperience", { required: true })}
                 className="form-style resize-x-none min-h-[130px] w-full"
               />
-              {errors.courseExperience && (
+              {errors?.courseExperience && (
                 <span className="ml-2 text-xs tracking-wide text-pink-200">
                   Please add your feedback
                 </span>

@@ -26,7 +26,7 @@ function RenderStepsForm() {
             {/* we have to use key here  */}
             <div
               className="flex flex-col items-center  ml-10"
-              key={stepForm._id}
+              key={index}
             >
               {/* step===stepForm.id equal hai to button ko dark kar do yello se  */}
               <button

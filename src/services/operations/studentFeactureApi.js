@@ -155,7 +155,7 @@ async function verifyPayment(bodyData, token, navigate, dispatch) {
     toast.success("payment Successful, you are addded to the course");
 
     // goto your enrolled courses
-    navigate("/dashboard/enrolled-courses");
+    await navigate("/dashboard/enrolled-courses");
     // you did all things in card so reset the card so code is added
     dispatch(resetCart());
   } catch (error) {

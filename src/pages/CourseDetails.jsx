@@ -55,7 +55,7 @@ function CourseDetails() {
     })();
   }, [courseId]);
 
-  console.log("course Data are  ", courseData);
+  console.log("course Data are !!  ", courseData);
 
   // calculating avg review count
   useEffect(() => {
@@ -145,21 +145,34 @@ function CourseDetails() {
     createdAt,
   } = courseData?.data?.courseDetails;
 
+
+
+  const course = courseData?.data?.courseDetails;
+
+
   // ADD TO CART
 
   //   add course in card only student can add to card the course
   function handleAddToCard() {
     // only student can add items in card
-    if (user && user?.accountType === ACCOUNT_TYPE.INSTRUCTOR) {
+    console.log("ERROR GETTING ");
+   
+    if (user && user?.accountType === ACCOUNT_TYPE?.INSTRUCTOR) {
       toast.error("You are Instructor, can't add the courses in card");
       return;
     }
+    console.log("user is56 ",user);
+
+
+
 
     // only student can add
     if (token) {
-      dispatch(addToCart(courseData.data.courseDetails));
+      dispatch(addToCart(course));
       return;
     }
+
+    console.log("error getting here");
 
     // if user is not login so he/she can not add the item in card
     if (!token) {
@@ -188,7 +201,6 @@ function CourseDetails() {
   }
 
   // extract the course
-  const course = courseData?.data?.courseDetails;
   return (
     <>
       <div className={`relative w-full bg-richblack-800 `}>
@@ -260,8 +272,8 @@ function CourseDetails() {
                     ? "Go To Course"
                     : "Buy Now"}
                 </button>
-                {!user ||
-                  (!course?.studentEnrolled.includes(user?._id) && (
+                {!(user &&
+                  (course?.studentEnrolled.includes(user?._id)) && (
                     <button onClick={handleAddToCard} className="blackButton">
                       Add to Cart
                     </button>
