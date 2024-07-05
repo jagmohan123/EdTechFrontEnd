@@ -19,7 +19,7 @@ This starter pack includes a basic setup for using Tailwind CSS with React. To s
     ```sh
     npm start
     ```
-1. Open the project in your browser at [`http://localhost:3000`](http://localhost:3000) to view your project.
+1. Open the project in your browser at [`[https://delicate-crostata-37d977.netlify.app/](https://delicate-crostata-37d977.netlify.app/)`]() to view your project.
 1. Create your React components and add your styles using Tailwind classes. You can also create new CSS files and import them into your components.
 
 The project is set up to use postcss-cli to process your CSS files.
