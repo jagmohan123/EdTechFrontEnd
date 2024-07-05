@@ -38,9 +38,9 @@ function AddSubSectionModal({
   useEffect(() => {
     // subsection ko view ya edit tab kar paoge jab vo create ho chuka hoga
     if (view || edit) {
-      setValue("lectureTitle", modalData.title);
-      setValue("lectureDiscription", modalData.description);
-      setValue("lectureVideo", modalData.videoUrl);
+      setValue("lectureTitle", modalData?.title);
+      setValue("lectureDiscription", modalData?.description);
+      setValue("lectureVideo", modalData?.videoUrl);
     }
   }, []);
 
@@ -80,7 +80,7 @@ function AddSubSectionModal({
     setLoading(true);
     const result = await updateSubSection(formData, token);
     if (result) {
-      console.log("result", result);
+      // console.log("result", result);
       // think some logic
 
       // update the structure of course
@@ -116,18 +116,17 @@ function AddSubSectionModal({
     formData.append("video", data.lectureVideo);
     setLoading(true);
     // cerate subsection API
-    console.log("My formData is ", formData);
+    // console.log("My formData is ", formData);
     const result = await createSubSection(formData, token);
     if (result) {
       // think some logic
-      console.log("The Result is ", result);
+      // console.log("The Result is ", result);
       // update the formate of course
       // add susection ke case me modalData hee sectionId hai bcs nestedViewSubsection me addSection vale btn me direct section id pass keaye hai
       const updatedCourseContent = course.courseContent.map((section) =>
         section._id === modalData ? result : section
       );
       const updatedCourse = { ...course, courseContent: updatedCourseContent };
-      console.log("@@@@@@@@@@@@", updatedCourse);
 
       dispatch(setCourse(updatedCourse));
     }
@@ -135,7 +134,6 @@ function AddSubSectionModal({
     setLoading(false);
   }
 
-  const navigate = useNavigate();
   return (
     <div className="fixed inset-0 z-[1000] !mt-0 grid h-screen w-screen place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-sm">
       <div className="my-10 w-11/12 max-w-[700px] rounded-lg border border-richblack-400 bg-richblack-800">

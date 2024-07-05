@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getEnrolledCourses } from "../../../services/operations/profileApis";
 import ProgressBar from "@ramonak/react-progress-bar";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 function EnrolledCourses() {
   const { token } = useSelector((state) => state.auth);
@@ -12,11 +11,11 @@ function EnrolledCourses() {
   async function getMyEnrolledCourses() {
     try {
       const res = await getEnrolledCourses(token);
-      console.log("we get the enroll courses", res);
+      // console.log("we get the enroll courses", res);
 
       setEnrollCourses(res);
     } catch (error) {
-      console.log("Could not fetch enrolled courses.");
+      // console.log("Could not fetch enrolled courses.");
     }
   }
   useEffect(() => {
@@ -58,22 +57,22 @@ function EnrolledCourses() {
                   className="flex w-[45%] cursor-pointer items-center gap-4 px-5 py-3"
                   onClick={() => {
                     navigate(
-                      `/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`
+                      `/view-course/${course?._id}/section/${course?.courseContent?.[0]?._id}/sub-section/${course?.courseContent?.[0]?.subSection?.[0]?._id}`
                     );
                   }}
                 >
                   <img
-                    src={course.thumbnail}
+                    src={course?.thumbnail}
                     alt="thumnail"
                     loading="lazy"
                     className="h-34 w-44 rounded-lg object-cover"
                   />
                   <div className="flex max-w-xs flex-col gap-2">
-                    <p className="font-semibold">{course.courseName}</p>
+                    <p className="font-semibold">{course?.courseName}</p>
                     <p className="text-xs text-richblack-300">
-                      {course.courseDescription.length > 50
-                        ? `${course.courseDescription.slice(0, 50)}...`
-                        : course.courseDescription}
+                      {course?.courseDescription?.length > 40
+                        ? `${course?.courseDescription?.slice(0, 40)}...`
+                        : course?.courseDescription}
                     </p>
                   </div>
                 </div>

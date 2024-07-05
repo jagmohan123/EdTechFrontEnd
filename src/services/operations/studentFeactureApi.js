@@ -62,7 +62,7 @@ export async function buyCourse(
       );
     }
 
-    console.log("PRINTING orderResponse", orderResponse);
+    // console.log("PRINTING orderResponse", orderResponse);
 
     // make the options->go razorpay website there you can see
     // what parameter need to give inside options
@@ -101,11 +101,11 @@ export async function buyCourse(
     // give some info also by this
     paymentObject.on("payment.failed", function (response) {
       toast.error("Opps!!! Payment Failed");
-      console.log(response.error);
+      // console.log(response.error);
     });
   } catch (error) {
-    console.log("PAYMENT API ERROR.....", error);
-    console.log(error?.response);
+    // console.log("PAYMENT API ERROR.....", error);
+    // console.log(error?.response);
     toast.error("Could not make payment because "+error?.response?.data?.message);
   }
   toast.dismiss(toastId);
@@ -129,7 +129,7 @@ async function sendPaymentSuccessEmail(response, amount, token) {
       }
     );
   } catch (error) {
-    console.log("PAYMENT SUCCESS EMAIL ERROR....", error);
+    // console.log("PAYMENT SUCCESS EMAIL ERROR....", error);
   }
 }
 
@@ -159,7 +159,7 @@ async function verifyPayment(bodyData, token, navigate, dispatch) {
     // you did all things in card so reset the card so code is added
     dispatch(resetCart());
   } catch (error) {
-    console.log("PAYMENT VERIFY ERROR....", error);
+    // console.log("PAYMENT VERIFY ERROR....", error);
     toast.error("Could not verify Payment");
   }
   toast.dismiss(toastId);

@@ -14,7 +14,7 @@ function MyCourses() {
     async function fetchInstructorCourses() {
       const result = await getInstructorCourses(token);
       // valid result aaya to course me set kar dunga
-      console.log("Instructor courses ",result);
+      // console.log("Instructor courses ",result);
       if (result) {
         setCourses(result);
       }
@@ -23,20 +23,21 @@ function MyCourses() {
   }, []);
 
   return (
-    <div>
-      <div className="mb-14 flex items-center justify-between">
-        <h1 className="text-3xl font-medium text-richblack-5">My Courses</h1>
-        <IconBtnC
-          text="Add Course"
-          // active={true}
-          onclick={() => navigate("/dashboard/add-course")}
-        >
-          <VscAdd />
-        </IconBtnC>
-      </div>
-      {/* jab course me kuch hoga tabhi me courses show karunga  */}
-      {courses && <CourseTable courses={courses} setCourses={setCourses} />}
+    <div className="p-4 md:p-8">
+    <div className="mb-14 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+      <h1 className="text-3xl font-medium text-richblack-5">My Courses</h1>
+      <IconBtnC
+        text="Add Course"
+        onclick={() => navigate("/dashboard/add-course")}
+        className="w-full md:w-auto"
+      >
+        <VscAdd />
+      </IconBtnC>
     </div>
+    {/* Show courses only if they exist */}
+    {courses && <CourseTable courses={courses} setCourses={setCourses} />}
+  </div>
+  
   );
 }
 

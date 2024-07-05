@@ -27,23 +27,23 @@ export function ContactUs(
           countrycode,
         }
       );
-      console.log("Sent User Query, Contact API Response=>", response);
+      // console.log("Sent User Query, Contact API Response=>", response);
       // console.log(response.data.message);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
       }
 
-      console.log(
-        "response successs for Contact Confirmation",
-        response.data.success
-      );
+      // console.log(
+      //   "response successs for Contact Confirmation",
+      //   response.data.success
+      // );
 
       toast.success(" Message sent Successfully");
       //   navigate("/");
     } catch (error) {
-      console.log("Error occured while sending Contact msg ");
-      console.log(error);
+      // console.log("Error occured while sending Contact msg ");
+      // console.log(error);
       toast.dismiss(toastid);
       if (!error.response.success) {
         toast.error(`Can't Sent Message`);

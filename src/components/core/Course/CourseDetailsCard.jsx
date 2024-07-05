@@ -11,16 +11,17 @@ import { addToCart } from "../../../slice/cartSlice";
 
 export default function CourseDetailsCard({
   course,
+  findCourse,
   setConfirmationModal,
   handleBuyCourse,
 }) {
   // get data from course so we can use here no need to write chaining syntex
 
+  // console.log("finded courses ", findCourse);
   const { thumbnail, price } = course;
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.profile);
-  console.log("user contain", user);
   const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
@@ -110,11 +111,12 @@ export default function CourseDetailsCard({
                 : "Buy Now"}
             </button>
             {/* add to card tabhi show karnege jab user course me enroll na ho  */}
-            {!user || !course?.studentEnrolled.includes(user?._id) && (
-              <button onClick={handleAddToCard} className="blackButton">
-                Add to Cart
-              </button>
-            )}
+            {!user ||
+              (!course?.studentEnrolled.includes(user?._id) && (
+                <button onClick={handleAddToCard} className="blackButton">
+                  Add to Cart
+                </button>
+              ))}
           </div>
 
           <div>
@@ -130,14 +132,14 @@ export default function CourseDetailsCard({
             </p>
 
             <div className="flex flex-col gap-3 text-sm text-caribbeangreen-100">
-              {course?.instructions?.map((item, index) => {
-                return (
-                  <p className={`flex gap-2`} key={index}>
+              {/* {findCourse?.tag?.map((item, index) => {
+                return ( */}
+                  <p className={`flex gap-2`}>
                     <BsFillCaretRightFill />
-                    <span>{item}</span>
+                    <span>{findCourse.courseDetails?.tag}</span>
                   </p>
-                );
-              })}
+                {/* ); */}
+              {/* })} */}
             </div>
           </div>
 

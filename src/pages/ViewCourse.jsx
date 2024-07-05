@@ -17,7 +17,7 @@ function ViewCourse() {
   useEffect(() => {
     (async () => {
       const courseData = await getFullDetailsOfCourse(courseId, token);
-      console.log("Course Data here... ", courseData);
+      // console.log("Course Data here... ", courseData);
       dispatch(setCourseSectionData(courseData.courseDetails.courseContent));
       dispatch(setEntireCourseData(courseData.courseDetails));
       dispatch(setCompletedLectures(courseData.completedVideos));
@@ -27,17 +27,23 @@ function ViewCourse() {
       });
       dispatch(setTotalNoOfLectures(lectures));
     })();
-  }, []);
+  }, [courseId, token, dispatch]);
   return (
     <>
-      <div className="relative flex min-h-[calc(100vh-3.5rem)]">
-        <VideoDetailsSidebar setReviewModal={setReviewModal} />
-        <div className="h-[calc(100vh-3.5rem)] flex-1 overflow-auto">
-          <div className="mx-6">
+      <div className="relative flex flex-col md:flex-row min-h-screen">
+        {/* Video Details Sidebar */}
+        <div className="md:w-[320px] bg-gray-800 px-4 py-6 md:min-h-screen md:border-r border-gray-700">
+          <VideoDetailsSidebar setReviewModal={setReviewModal} />
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 overflow-auto">
+          <div className="mx-4 md:mx-6 my-6">
             <Outlet />
           </div>
         </div>
       </div>
+
       {reviewModal && <CourseReviewModal setReviewModal={setReviewModal} />}
     </>
   );

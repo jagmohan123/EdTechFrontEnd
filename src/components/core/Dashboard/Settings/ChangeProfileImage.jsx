@@ -20,7 +20,7 @@ function ChangeProfileImage() {
  const fileInputRef = useRef(null);
   function handleClick() {
     fileInputRef.current.click();
-    console.log("upload");
+    // console.log("upload");
   }
 
   const handleFileChange = (e) => {
@@ -51,14 +51,14 @@ function ChangeProfileImage() {
       // ko upload kar rhe hai same name yha par bhi use karna padega  by which we get the photo from form
       
       formData.append("updateProfileImage", imageFile);
-      console.log("Uploading Image");
-      console.log("formdata is ", formData);
-      console.log("image has some values are ",imageFile);
+      // console.log("Uploading Image");
+      // console.log("formdata is ", formData);
+      // console.log("image has some values are ",imageFile);
       dispatch(updateProfileImageOfUser(token, formData)).then(() => {
         setLoading(false);
       });
     } catch (error) {
-      console.log("getting error while upload an image ", error.message);
+      // console.log("getting error while upload an image ", error.message);
     }
   }
   useEffect(() => {

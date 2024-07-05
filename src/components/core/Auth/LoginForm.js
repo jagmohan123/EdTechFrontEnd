@@ -26,9 +26,7 @@ function LoginForm() {
   function submitHandler(event) {
     event.preventDefault();
     dispatch(Login(email, password, navigate));
-
-    console.log("Printing the form data");
-    console.log(formData);
+    // console.log(formData);
   }
 
   return (

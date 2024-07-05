@@ -13,20 +13,20 @@ export function sentOtp(email, navigate) {
         email,
         isUserExist: true,
       });
-      console.log("Sent OTP API Response=>", response);
+      // console.log("Sent OTP API Response=>", response);
       // console.log(response.data.message);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
       }
 
-      console.log("response successs for otp", response.data.success);
+      // console.log("response successs for otp", response.data.success);
 
       toast.success("OTP Sent Successfully");
       navigate("/verify-email");
     } catch (error) {
-      console.log("Error occured while sending the OTP ");
-      console.log(error);
+      // console.log("Error occured while sending the OTP ");
+      // console.log(error);
       if (!error.response.success) {
         toast.error(error.response.data.message);
       }
@@ -58,9 +58,8 @@ export function Signup(
         accountType,
         otp,
       });
-      console.log("response=>", response.data.email);
 
-      console.log("SIGNUP API RESPONSE............", response);
+      // console.log("SIGNUP API RESPONSE............", response);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -68,8 +67,8 @@ export function Signup(
       toast.success("Signup Successfully");
       navigate("/login");
     } catch (error) {
-      console.log("Error occured while signing up", error);
-      console.log(error.message);
+      // console.log("Error occured while signing up", error);
+      // console.log(error.message);
       toast.error("Signup Failed");
       navigate("/signup");
     }
@@ -87,7 +86,7 @@ export function Login(email, password, navigate) {
         email,
         password,
       });
-      console.log("Login success=>", response);
+      // console.log("Login success=>", response);
       if (!response.data.success) {
         throw new Error("some error while login ", response.data.message);
       }
@@ -103,9 +102,9 @@ export function Login(email, password, navigate) {
       localStorage.setItem("user", JSON.stringify(response.data.user));
       navigate("/dashboard/my-profile");
     } catch (error) {
-      console.log("Error occured while loging ", error);
-      console.log("This is coming", error.response);
-      toast.error(error.response.data.message);
+      // console.log("Error occured while loging ", error);
+      // console.log("This is coming", error.response);
+      toast.error(error?.response?.data?.message);
     }
     dispatch(setLoading(false));
   };
@@ -141,11 +140,7 @@ export function getPasswordResetToken(email, setEmailSent) {
         authEndpoints.RESET_PASSWORD_TOKEN,
         { email }
       );
-      console.log("reset Password token value", response);
-
-      console.log(
-        "Sent reset Token password email to user for password reset "
-      );
+      // console.log("reset Password token value", response);
 
       // if response is not valid so throw an erro
       if (!response) {
@@ -157,10 +152,11 @@ export function getPasswordResetToken(email, setEmailSent) {
       setEmailSent(true);
       
     } catch (error) {
-      console.log(
-        "Error occured while sending reset Token email to the user",
-        error
-      );
+      // console.log(
+      //   "Error occured while sending reset Token email to the user",
+      //   error
+      // );
+      // console.log(error);
 
       toast.error(error.response.data.message);
       toast.dismiss(toastId);
@@ -181,15 +177,16 @@ export function resetPassword(password, confirm_password, token) {
         authEndpoints.RESET_PASSWORD,
         { password, confirm_password, token }
       );
-      console.log("reset password response is ", response);
+      // console.log("reset password response is ", response);
       if (!response) {
         throw new Error(response.data.message);
       }
       // If every thing fine so give the success message in toast
       toast.success("Password updated successfully");
     } catch (error) {
-      console.log("Error occured while reseting the password of user.", error);
-      toast.error(error.response.data.message);
+      // console.log(error);
+      // console.log("Error occured while reseting the password of user.", error);
+      toast.error(error?.response?.data?.message);
     }
     dispatch(setLoading(false));
   };

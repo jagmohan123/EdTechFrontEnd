@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 // file upload icon
 import { FiUploadCloud } from "react-icons/fi";
 import { useDropzone } from "react-dropzone";
@@ -42,7 +41,7 @@ function UploadThumnail({
   });
   //   this is for check the preview view of an image
   function previewFile(file) {
-        console.log(file)
+        // console.log(file)
         const reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onloadend = () => {

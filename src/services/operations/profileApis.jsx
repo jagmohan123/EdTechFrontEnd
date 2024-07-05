@@ -20,21 +20,21 @@ export function updateProfileImageOfUser(token, formData) {
         }
       );
 
-      console.log(
-        "UPDATE_DISPLAY_PICTURE_API API RESPONSE............",
-        response
-      );
+      // console.log(
+      //   "UPDATE_DISPLAY_PICTURE_API API RESPONSE............",
+      //   response
+      // );
 
       if (!response.data.success) {
         throw new Error(response.data.message);
       }
       toast.success("Display Picture Updated Successfully");
 
-      console.log("Response ke andar data ye hai ", response.data);
+      // console.log("Response ke andar data ye hai ", response.data);
       dispatch(setUser(response.data.data));
     } catch (error) {
-      console.log(error.message);
-      console.error("Getting error while upload an image ");
+      // console.log(error.message);
+      // console.error("Getting error while upload an image ");
       toast.error("can't Upload Image");
     }
     toast.dismiss(toastId);
@@ -56,12 +56,11 @@ export function updateProfileDetails(token, formData) {
         }
       );
 
-      console.log("Update user info  API RESPONSE............", response);
+      // console.log("Update user info  API RESPONSE............", response);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
       }
-      console.log("out", response);
       const userImage = response.data.updatedUserDetails.image
         ? response.data.updatedUserDetails.image
         : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.updatedUserDetails.firstName} ${response.data.updatedUserDetails.lastName}`;
@@ -70,8 +69,8 @@ export function updateProfileDetails(token, formData) {
       );
       toast.success("Profile Updated Successfully");
     } catch (error) {
-      console.log(error.message);
-      console.error("Getting error while Updating user info ");
+      // console.log(error.message);
+      // console.error("Getting error while Updating user info ");
       toast.error("can't Upload Image");
     }
     toast.dismiss(toastId);
@@ -91,7 +90,7 @@ export function deleteProfile(token, navigate) {
           Authorization: `Bearer ${token}`,
         }
       );
-      console.log("DELETE_PROFILE_API API RESPONSE............", response);
+      // console.log("DELETE_PROFILE_API API RESPONSE............", response);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -99,7 +98,7 @@ export function deleteProfile(token, navigate) {
       toast.success("Profile Deleted Successfully");
       dispatch(logout(navigate));
     } catch (error) {
-      console.log("DELETE_PROFILE_API API ERROR............", error);
+      // console.log("DELETE_PROFILE_API API ERROR............", error);
       toast.error("Could Not Delete Profile");
     }
     toast.dismiss(toastId);
@@ -124,10 +123,10 @@ export function changePasswordFromProfile(token, formData) {
         throw new Error(response.data.message);
       }
 
-      console.log("Your password update successfully", response);
+      // console.log("Your password update successfully", response);
       toast.success("password updated");
     } catch (error) {
-      console.log("CHANGE_PASSWORD_API API ERROR............", error);
+      // console.log("CHANGE_PASSWORD_API API ERROR............", error);
       toast.error(error.response.data.message);
     }
 
@@ -141,7 +140,6 @@ export async function getEnrolledCourses(token) {
   let result = [];
 
   try {
-    console.log("BEFORE Calling BACKEND API FOR ENROLLED COURSES");
 
     const response = await apiConnector(
       "GET",
@@ -152,7 +150,6 @@ export async function getEnrolledCourses(token) {
       }
     );
 
-    console.log("AFTER Calling BACKEND API FOR ENROLLED COURSES");
 
     if (!response.data.success) {
       throw new Error(response.data.message);
@@ -160,11 +157,11 @@ export async function getEnrolledCourses(token) {
 
     // console.log("Enrolled courses info fetched successfully", response);
     toast.success("Enrolled Courses ");
-    console.log(response.data.data);
-    result = response.data.data;
+    // console.log(response.data.data);
+    result = response?.data?.data;
   } catch (error) {
-    console.log("GET_USER_ENROLLED_COURSES_API API ERROR............", error);
-    toast.error(error.response.message);
+    // console.log("GET_USER_ENROLLED_COURSES_API API ERROR............", error);
+    toast.error(error?.response?.data?.message);
   }
   toast.dismiss(toastId);
   return result;
@@ -183,11 +180,11 @@ export async function getInstructorData(token) {
         Authorization: `Bearer ${token}`,
       }
     );
-    console.log("GET INSTRUCTOR DASHBOARD API RESPONSE", response);
+    // console.log("GET INSTRUCTOR DASHBOARD API RESPONSE", response);
  
     result = response?.data?.courses;
   } catch (error) {
-    console.log("GET INSTRUCTOR STATS DATA API ERROR",error);
+    // console.log("GET INSTRUCTOR STATS DATA API ERROR",error);
     toast.error(error);
   }
   toast.dismiss(toastId);

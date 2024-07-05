@@ -6,7 +6,7 @@ function MyCart() {
   const { total, totalItems } = useSelector((state) => state.cart);
   useEffect(() => {
   }, [total, totalItems]);
-  console.log("total and totalItems from slice", total, totalItems);
+  // console.log("total and totalItems from slice", total, totalItems);
   return (
     <>
       <h1 className="mb-14 text-3xl font-medium text-richblack-5">Cart</h1>

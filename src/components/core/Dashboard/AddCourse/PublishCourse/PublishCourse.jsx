@@ -16,7 +16,7 @@ function PublishCourse() {
     handleSubmit,
     setValue,
     getValues,
-    formState: { errors },
+    formState: {  },
   } = useForm();
 
   const navigate = useNavigate();

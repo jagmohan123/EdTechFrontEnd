@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { UseDispatch, useDispatch, useSelector } from "react-redux";
+import {  useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import RenderStepsForm from "../AddCourse/RenderStepsForm";
 import { getFullDetailsOfCourse } from "../../../../services/operations/coursesApis";
@@ -7,7 +7,7 @@ import { setCourse, setEditCourse } from "../../../../slice/courseSlice";
 function EditCourse() {
   const dispatch = useDispatch();
   const { courseId } = useParams();
-  console.log("course id is ",courseId);
+  // console.log("course id is ",courseId);
   const { course } = useSelector((state) => state.course);
   const { token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ function EditCourse() {
     const populateCourseDetails = async () => {
       setLoading(true);
       const result = await getFullDetailsOfCourse(courseId , token);
-      console.log("full details of course is ",result);
+      // console.log("full details of course is ",result);
 
       if (result?.courseDetails) {
         // edit vale flag ko true set karunga

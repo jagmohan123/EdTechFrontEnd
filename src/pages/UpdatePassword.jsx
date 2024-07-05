@@ -7,10 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { resetPassword } from "../services/operations/authApis";
 import Loader from "../components/commonCodeandPage/Loader";
 function UpdatePassword() {
-  const { token } = useSelector((state) => state.auth);
   let navigate = useNavigate();
-  if (token) {
-  }
+ 
   function navigateHandler(event) {
     event.preventDefault();
     navigate("../login", { replace: true });
@@ -40,17 +38,17 @@ function UpdatePassword() {
 
   function submitHandler(event) {
     event.preventDefault();
-    const accountData = {
-      ...formData,
-    };
+    // const accountData = {
+    //   ...formData,
+    // };
 
     if (formData.Password === formData.confirmPassword) {
       navigate("/ResetPasswordDone");
     }
-    const finalData = {
-      ...accountData,
-    };
-    console.log(finalData);
+    // const finalData = {
+    //   ...accountData,
+    // };
+    // console.log(finalData);
 
     const token = location.pathname.split("/").at(-1);
     dispatch(resetPassword(Password, confirmPassword, token));

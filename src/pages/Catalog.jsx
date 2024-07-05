@@ -18,12 +18,12 @@ function Catalog() {
   useEffect(() => {
     async function getCategories() {
       const result = await apiConnector("GET", categories.SHOW_ALL_CATEGORIES);
-      console.log("All the category and there courses inside that category are=> ", result);
+      // console.log("All the category and there courses inside that category are=> ", result);
       const category_id = result?.data?.data?.filter(
         (ct) => ct.name.split(" ").join("").toLowerCase() === catalogName
       )[0]._id;
 
-      console.log("We got the category id is ", category_id);
+      // console.log("We got the category id is ", category_id);
       setCategoryId(category_id);
     }
     getCategories();
@@ -33,10 +33,10 @@ function Catalog() {
     async function getCategoryPageInfo() {
       try {
         const response = await getCatalogPageData(categoryId);
-        console.log("Category ke andar courses : ", response);
+        // console.log("Category ke andar courses : ", response);
         setCatalogPageData(response);
       } catch (error) {
-        console.log("Getting this error");
+        // console.log("Getting this error");
       }
     }
     if (categoryId) {
@@ -113,7 +113,7 @@ function Catalog() {
           <p>Top Courses in {catlogPageData?.data?.selectedCategory?.name} </p>
           <div className="py-8">
             <CourseSlider
-              courses={catlogPageData?.data.differentCategory?.courses}
+              courses={catlogPageData?.data.selectedCategory?.courses}
             />
           </div>
         </div>
@@ -130,6 +130,20 @@ function Catalog() {
               .map((course, index) => (
                 <CourseCard course={course} key={index} height="h-[420px]" />
               ))}
+          </div>
+        </div>
+      </div>
+
+
+
+       {/* section 2 */}
+       <div className=" mx-auto box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
+        <div className="section_heading">
+          <p>Other Courses </p>
+          <div className="py-8">
+            <CourseSlider
+              courses={catlogPageData?.data.differentCategory?.courses}
+            />
           </div>
         </div>
       </div>

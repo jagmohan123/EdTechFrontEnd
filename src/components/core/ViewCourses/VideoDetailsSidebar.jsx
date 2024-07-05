@@ -24,8 +24,8 @@ function VideoDetailsSidebar({ setReviewModal }) {
     completedLectures,
   } = useSelector((state) => state.viewCourse);
 
-  console.log("course entire data ", courseEntireData);
-  console.log("courseSection Data", courseSectionData);
+  // console.log("course entire data ", courseEntireData);
+  // console.log("courseSection Data", courseSectionData);
   //   by default ek video highlight show hoti hai jab bhi me video play karta hai side bar me ek video highlight hoti hai jo play ho rhi hai
 
   useEffect(() => {
@@ -62,93 +62,83 @@ function VideoDetailsSidebar({ setReviewModal }) {
     })();
   }, [courseSectionData, courseEntireData, location.pathname]);
   return (
-    <>
-      <div className="flex h-[calc(100vh-3.5rem)] w-[320px] max-w-[350px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800">
-        <div className="mx-5 flex flex-col items-start justify-between gap-2 gap-y-4 border-b border-richblack-600 py-5 text-lg font-bold text-richblack-25">
-          {/* heading and button */}
-          <div className="flex w-full items-center justify-between ">
-            <div
-              onClick={() => navigate("dashboard/enrolled-courses")}
-              className="flex flex-row items-center cursor-pointer"
-            >
-              <IoIosArrowBack size={20} />
-              Back
-            </div>
-            <IconBtnC
-              customClasses="ml-auto"
-              text="Add Review"
-              // yha par onclick likhna hai onClick nhi likhna
-              onclick={() => setReviewModal(true)}
-            />
-          </div>
-
-          {/* for headings and title */}
-          <div className="flex flex-col">
-            <p>{courseEntireData?.courseName}</p>
-            <p className="text-sm font-semibold text-richblack-500">
-              {completedLectures?.length}/{totalNoOfLectures}
-            </p>
-          </div>
+    <div className="flex flex-col md:w-[320px] max-w-[350px] border-r-[1px] border-r-richblack-700 bg-richblack-800">
+      {/* Heading and Back Button */}
+      <div className="mx-5 flex items-center justify-between border-b border-richblack-600 py-5 text-lg font-bold text-richblack-25">
+        <div
+          onClick={() => navigate("dashboard/enrolled-courses")}
+          className="flex items-center cursor-pointer"
+        >
+          <IoIosArrowBack size={20} />
+          Back
         </div>
-
-        {/* for sections and subsections */}
-        <div className="h-[calc(100vh - 5rem)] overflow-y-auto">
-          {courseSectionData?.map((section, index) => (
-            <div onClick={() => setActiveStatus(section?._id)} key={index}>
-              {/* section */}
-              <div className="flex flex-row justify-between bg-richblack-600 px-5 py-4">
-                <div className="w-[70%] font-semibold">
-                  {section?.sectionName}
-                </div>
-                {/* add aerrow icon */}
-                <div className="flex items-center gap-3">
-                  <span
-                    className={`${
-                      activeStatus === section?.sectionName
-                        ? "rotate-0"
-                        : "rotate-180"
-                    } transition-all duration-500`}
-                  >
-                    <BsChevronDown />
-                  </span>
-                </div>
-              </div>
-
-              {/* Sub section */}
-              {activeStatus === section._id && (
-                <div className="transition-[height] duration-500 ease-in-out">
-                  {section.subSection.map((topic, i) => (
-                    <div
-                      className={`flex gap-3  px-5 py-2 ${
-                        videoActive === topic._id
-                          ? "bg-yellow-200 font-semibold text-richblack-800"
-                          : "hover:bg-richblack-900"
-                      } `}
-                      key={i}
-                      onClick={() => {
-                        //1navigate karna
-                        navigate(
-                          `/view-course/${courseEntireData?._id}/section/${section?._id}/sub-section/${topic?._id}`
-                        );
-                        //2 highlight karna hai us video lo
-                        setVideoActive(topic._id);
-                      }}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={completedLectures.includes(topic?._id)}
-                        onChange={() => {}}
-                      />
-                      {topic.title}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+        <IconBtnC
+          customClasses="ml-auto"
+          text="Add Review"
+          onclick={() => setReviewModal(true)} // Assuming setReviewModal is defined
+        />
       </div>
-    </>
+
+      {/* Course Information */}
+      <div className="mx-5 my-3">
+        <p>{courseEntireData?.courseName}</p>
+        <p className="text-sm font-semibold text-richblack-500">
+          {completedLectures?.length}/{totalNoOfLectures}
+        </p>
+      </div>
+
+      {/* Sections and Subsections */}
+      <div className="flex-1 overflow-y-auto">
+        {courseSectionData?.map((section, index) => (
+          <div key={index} onClick={() => setActiveStatus(section?._id)}>
+            {/* Section */}
+            <div className="flex items-center justify-between bg-richblack-600 px-5 py-4">
+              <div className="w-[70%] font-semibold">
+                {section?.sectionName}
+              </div>
+              <div className="flex items-center">
+                <span
+                  className={`transform transition-transform ${
+                    activeStatus === section._id ? "rotate-0" : "rotate-180"
+                  }`}
+                >
+                  <BsChevronDown />
+                </span>
+              </div>
+            </div>
+
+            {/* Subsections */}
+            {activeStatus === section._id && (
+              <div className="transition-height duration-500 ease-in-out">
+                {section.subSection.map((topic, i) => (
+                  <div
+                    key={i}
+                    className={`flex items-center px-5 py-2 ${
+                      videoActive === topic._id
+                        ? "bg-yellow-200 font-semibold text-richblack-800"
+                        : "hover:bg-richblack-900"
+                    }`}
+                    onClick={() => {
+                      navigate(
+                        `/view-course/${courseEntireData?._id}/section/${section?._id}/sub-section/${topic?._id}`
+                      );
+                      setVideoActive(topic._id);
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={completedLectures.includes(topic?._id)}
+                      onChange={() => {}}
+                    />
+                    <span className="ml-2">{topic.title}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 

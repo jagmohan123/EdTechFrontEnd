@@ -22,9 +22,8 @@ export default function UpdatePasswordFromProfile() {
   function submitPasswordForm(data) {
     try {
       dispatch(changePasswordFromProfile(token, data));
-      console.log("data ke andar ye value hai ");
     } catch (error) {
-      console.log("Getting an error while changing the password ");
+      // console.log("Getting an error while changing the password ");
     }
   }
 

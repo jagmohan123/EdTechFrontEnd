@@ -47,7 +47,7 @@ function SignupForm() {
       ...formData,
       accountType,
     };
-    console.log(signupData);
+    // console.log(signupData);
 
     // dispatch the send otp and signup services function
 

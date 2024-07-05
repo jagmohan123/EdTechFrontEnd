@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import { BiInfoCircle } from "react-icons/bi";
 import { HiOutlineGlobeAlt } from "react-icons/hi";
 import toast from "react-hot-toast";
 import { formatDate } from "../services/formateDate";
 import { ACCOUNT_TYPE } from "../UtilsVariable_Function/constanst_var_fun";
 import Markdown from "react-markdown";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { buyCourse } from "../services/operations/studentFeactureApi";
@@ -27,15 +26,11 @@ function CourseDetails() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log("Kaise hai sare ");
-
-
-
   // destructure karke object id ko nikalna hai
   const { courseId } = useParams();
-  console.log("courseId is ", courseId, "token=>", token);
+  // console.log("courseId is ", courseId, "token=>", token);
 
-
+  const [CourseIn, setCourseIn] = useState(null);
 
   // Declear a state to save the course details
   const [courseData, setcourseData] = useState(null);
@@ -47,15 +42,17 @@ function CourseDetails() {
       try {
         // Calling fetchCourseDetails fucntion to fetch the details
         const res = await getCourseDetails(courseId);
-        console.log("course details response api : ", res);
+        // console.log("course details response api : ", res);
         setcourseData(res);
+        setCourseIn(res?.data);
       } catch (error) {
-        console.log("Could not fetch Course Details");
+        // console.log("Could not fetch Course Details");
       }
     })();
   }, [courseId]);
 
-  console.log("course Data are !!  ", courseData);
+  // console.log("course Data are !!  ", courseData);
+  // console.log("course n me ",CourseIn);
 
   // calculating avg review count
   useEffect(() => {
@@ -145,34 +142,25 @@ function CourseDetails() {
     createdAt,
   } = courseData?.data?.courseDetails;
 
-
-
   const course = courseData?.data?.courseDetails;
-
 
   // ADD TO CART
 
   //   add course in card only student can add to card the course
   function handleAddToCard() {
     // only student can add items in card
-    console.log("ERROR GETTING ");
-   
+    // console.log("ERROR GETTING ");
+
     if (user && user?.accountType === ACCOUNT_TYPE?.INSTRUCTOR) {
       toast.error("You are Instructor, can't add the courses in card");
       return;
     }
-    console.log("user is56 ",user);
-
-
-
 
     // only student can add
     if (token) {
       dispatch(addToCart(course));
       return;
     }
-
-    console.log("error getting here");
 
     // if user is not login so he/she can not add the item in card
     if (!token) {
@@ -262,30 +250,35 @@ function CourseDetails() {
                 <button
                   className="yellowButton"
                   onClick={
-                    user && course?.studentEnrolled.includes(user?._id)
-                      ? () => dispatch(navigate("/dashboard/enrolled-courses"))
+                    user?.accountType === ACCOUNT_TYPE.STUDENT &&
+                    course?.studentEnrolled.includes(user?._id)
+                      ? () => navigate("/dashboard/enrolled-courses")
                       : () => handleBuyCourse()
                   }
                 >
-              
-                  {user && course?.studentEnrolled.includes(user?._id)
+                  {user?.accountType === ACCOUNT_TYPE.STUDENT &&
+                  course?.studentEnrolled.includes(user?._id)
                     ? "Go To Course"
                     : "Buy Now"}
                 </button>
-                {!(user &&
-                  (course?.studentEnrolled.includes(user?._id)) && (
-                    <button onClick={handleAddToCard} className="blackButton">
-                      Add to Cart
-                    </button>
-                  ))}
+                {
+                  !(
+                    user?.accountType === ACCOUNT_TYPE.STUDENT &&
+                    course?.studentEnrolled.includes(user?._id) && (
+                      <button onClick={handleAddToCard} className="blackButton">
+                        Add to Cart
+                      </button>
+                    )
+                  )
+                }
               </div>
             </div>
           </div>
-      
 
           <div className="right-[1rem] top-[60px] mx-auto hidden min-h-[600px] w-1/3 max-w-[410px] translate-y-24 md:translate-y-0 lg:absolute  lg:block">
             <CourseDetailsCard
               course={courseData?.data?.courseDetails}
+              findCourse={CourseIn}
               setConfirmationModal={setConfirmationModal}
               handleBuyCourse={handleBuyCourse}
             />
@@ -314,7 +307,9 @@ function CourseDetails() {
                     <span>
                       {totalNoOfLectures} {`lecture(s)`}
                     </span>
-                    <span>{courseData?.data?.totalDuration} Total Duration</span>
+                    <span>
+                      {courseData?.data?.totalDuration} Total Duration
+                    </span>
                   </div>
                   <div>
                     <button

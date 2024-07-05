@@ -26,9 +26,7 @@ function CourseReviewModal({ setReviewModal }) {
   // es function se rating kee entry db me store karenge
   // setReview modal ko close kar dunga
   async function onSubmitRating(data,e) {
-    console.log("Hey");
     e.preventDefault();
-    console.log("Hey");
     await createRating(
       {
         courseId: courseEntireData._id,
@@ -44,7 +42,7 @@ function CourseReviewModal({ setReviewModal }) {
   }
 
   function ratingChanged(newRating) {
-    console.log("New Rating is ",newRating);
+    // console.log("New Rating is ",newRating);
     setValue("courseRating", newRating);
   }
   return (

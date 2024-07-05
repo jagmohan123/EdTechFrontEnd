@@ -14,7 +14,7 @@ function RenderTotalAmount() {
 
   function handleBuyCourse() {
     const courses = cart.map((course) => course._id);
-    console.log("our courses id are", courses);
+    // console.log("our courses id are", courses);
     // h/w payment integration gateway
 
     buyCourse(token, courses, user, navigate, dispatch);

@@ -30,7 +30,7 @@ function ContactForm() {
         data.countrycode
       )
     );
-    console.log(data);
+    // console.log(data);
   };
 
   useEffect(() => {

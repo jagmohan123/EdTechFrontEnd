@@ -24,11 +24,11 @@ function EditProfile() {
   ];
   // when we sumbit the data we call the update user details service
   function sumbitProfileFormData(data) {
-    console.log("Form Data - ", data)
+    // console.log("Form Data - ", data)
     try {
       dispatch(updateProfileDetails(token, data));
     } catch (error) {
-      console.log("ERROR MESSAGE - ", error.message);
+      // console.log("ERROR MESSAGE - ", error.message);
     }
   }
 

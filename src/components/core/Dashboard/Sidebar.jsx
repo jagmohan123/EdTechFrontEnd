@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import Loader from "../../commonCodeandPage/Loader";
 import Sidebarlink from "./Sidebarlink";
-import { VscSignOut } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../../commonCodeandPage/ConfirmationModal";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../services/operations/authApis";
 import { sidebarLinks } from "../../../data/dashboard-links";
+import { VscSignOut, VscMenu,VscClose } from "react-icons/vsc";
 
 function Sidebar() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   // way of given name of specific loading var of slices
   const { loading: authLoading } = useSelector((state) => state.auth);
   const { user, loading: profileLoading } = useSelector(
@@ -27,9 +29,32 @@ function Sidebar() {
       </div>
     );
   }
+
   return (
     <>
-      <div className="flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800 py-10">
+       <button
+        className="absolute top-4 left-4 z-10 md:hidden"
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+      >
+        <VscMenu className="text-2xl text-richblack-300" />
+      </button>
+
+      {/* Sidebar */}
+      <div
+        className={`${
+          isSidebarOpen ? "block" : "hidden"
+        } fixed inset-0 z-20 md:relative md:block h-[calc(100vh-3.5rem)] w-[220px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800 py-10 md:flex`}
+      >
+        {/* Close Button for Mobile Sidebar */}
+        {isSidebarOpen && (
+          <button
+            className="absolute top-4 right-4 md:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+          >
+            <VscClose className="text-2xl text-richblack-300" />
+          </button>
+        )}
+
         <div className="flex flex-col px-4">
           {sidebarLinks.map((link) => {
             if (link?.type && user?.accountType !== link?.type) return null;
@@ -39,9 +64,10 @@ function Sidebar() {
           })}
         </div>
 
-        {/* profile sidebar me jo border hai uske leaye  */}
-        <div className="mx-auto  mt-8 mb-10 h-[1px] w-11/12 bg-richblack-600"></div>
-        {/* for setting and logout icon and button */}
+        {/* Divider */}
+        <div className="mx-auto mt-8 mb-10 h-[1px] w-11/12 bg-richblack-600"></div>
+
+        {/* Settings and Logout */}
         <div className="flex flex-col">
           <Sidebarlink
             link={{ name: "Settings", path: "/dashboard/settings" }}
@@ -50,10 +76,10 @@ function Sidebar() {
           <button
             onClick={() =>
               setConfirmationModal({
-                text1: "Are you sure ?",
+                text1: "Are you sure?",
                 text2: "You will be Logged out of your account",
                 btn1Text: "Logout",
-                btn2Text: "Cancle",
+                btn2Text: "Cancel",
                 btn1Handler: () => {
                   dispatch(logout(navigate));
                 },
@@ -66,11 +92,19 @@ function Sidebar() {
           >
             <div className="flex items-center gap-x-3">
               <VscSignOut className="text-lg" />
-              <span>logout</span>
+              <span>Logout</span>
             </div>
           </button>
         </div>
       </div>
+
+      {/* Overlay for mobile sidebar */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 z-10 bg-black opacity-50 md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
 
       {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
     </>

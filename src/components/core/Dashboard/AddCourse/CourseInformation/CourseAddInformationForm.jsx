@@ -42,7 +42,7 @@ export default function CourseAddInformationForm() {
 
       setLoading(false);
     } catch (error) {
-      console.log("Getting error while fetching the course categories");
+      // console.log("Getting error while fetching the course categories");
     }
   }
 
@@ -157,7 +157,7 @@ export default function CourseAddInformationForm() {
       dispatch(setCourse(response));
     }
     setLoading(false);
-    console.log("All the formData is", formData);
+    // console.log("All the formData is", formData);
   }
 
   return (
