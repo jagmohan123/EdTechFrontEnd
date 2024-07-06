@@ -1,30 +1,39 @@
-React & Tailwind CSS Starter Pack
-This is a starter pack for creating React projects with Tailwind CSS configured. It uses React version 18.2 and Tailwind CSS version 3.2.
 
-Usage
-This starter pack includes a basic setup for using Tailwind CSS with React. To start building your own components and styles, follow these steps:
+## Live Link
+https://studyaddal.netlify.app/
+## Study Adda
+Study Adda is an educational technology platform designed to connect instructors and learners. Instructors can create courses, monitor their earnings, and manage their profiles. Students can purchase courses, access them, and track their progress.
 
-1. Clone the repository to your local machine.
-    ```sh
-    git clone https://github.com/thepranaygupta/react-tailwind-css-starter-pack.git
-    ```
+## Features
 
-1. Install the required packages.
-    ```sh
-    cd react-tailwind-css-starter-pack
-    npm install
-    ```
+## Instructor Dashboard:
+Track courses created, earnings, and student enrollment.
+## Course Management: 
+Create, edit, and delete courses.
+## User Profiles: 
+Manage profile details including profile image, gender, and contact information.
+## Student Dashboard:
+View purchased courses, progress, and completion status.
+## Technologies Used
+Frontend: [ReactJs, Tailwindcss,]
+Backend: [NodeJS, ExpressJS]
+Database: [MongoDB]
 
-1. Start the development server.
-    ```sh
-    npm start
-    ```
-1. Open the project in your browser at https://studyaddal.netlify.app/ to view your project.
-1. Create your React components and add your styles using Tailwind classes. You can also create new CSS files and import them into your components.
+## Setup Instructions
+Clone the repository:
+git clone [<repository-url>](https://github.com/jagmohan123/EdTechFrontEnd)
 
-The project is set up to use postcss-cli to process your CSS files.
- You can add your own tailwind.config.js file to customize your Tailwind setup.
+## Install dependencies:
+Copy code
+npm install
+Configure environment variables.
 
-## Contributing
+## Start the application:
+npm start
+Open your browser and navigate to http://localhost:3000.
 
-Contributions are welcome! If you have any suggestions or find any issues, please feel free to open an issue or a pull request.
+Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+License
+[Choose a license for your project and specify here.]
